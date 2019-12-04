@@ -10,6 +10,7 @@
 	       (incf num-vowels)))
       num-vowels))
   
+
   (defun vowels-count-report (str)
     (let ((num-count-hash (make-hash-table :test 'equalp)))
       (loop for c across "aeiou" do
@@ -17,7 +18,14 @@
       (loop for c across str do
 	   (if (gethash c vowels-dict)
 	       (incf (gethash c num-count-hash))))
-      num-count-hash)))
+      (vowels-report num-count-hash)))
+
+  
+  (defun print-vowel-count (key value)
+    (format t "~a:~a~%" key value))
+
+  (defun vowels-report (vowel-hash)
+    (maphash #'print-vowel-count vowel-hash)))
 
 (let ((vowels-dict (make-hash-table :test 'equalp)))
   (loop for c across "aeiou" do
